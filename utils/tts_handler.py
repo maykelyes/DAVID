@@ -42,7 +42,7 @@ class TTSHandler:
                 top_p=0.9,
                 text_guidance=0.80,
                 voice_guidance=1.40,   
-                style_guidance=2.0,
+                style_guidance=8.0,
                 repetition_penalty=1.00
             )
 

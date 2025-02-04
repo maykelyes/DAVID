@@ -1,17 +1,17 @@
 import streamlit as st
-import os
 from dotenv import load_dotenv
 import asyncio
 from utils.ai_handler import AIHandler
 from utils.tts_handler import TTSHandler
 import logging
+import openai
 
 # הגדרת הלוגר
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # טעינת משתני הסביבה
-load_dotenv()
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # הוספת CSS ליישור כל הטקסטים לימין (RTL)
 st.markdown(
