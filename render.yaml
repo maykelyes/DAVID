@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: david-inspiration
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PLAYHT_API_KEY
+        sync: false
+      - key: PLAYHT_USER_ID
+        sync: false
+      - key: PLAYHT_VOICE_ID
+        sync: false 
