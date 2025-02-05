@@ -1,4 +1,6 @@
 import streamlit as st
+st.set_page_config(page_title="השראות מדוד גלפרין", layout="wide")
+
 from dotenv import load_dotenv
 import asyncio
 from utils.ai_handler import AIHandler
@@ -80,6 +82,5 @@ if st.button("שאל את דוד"):
 
 # בסוף הקובץ
 if __name__ == "__main__":
-    st.set_page_config(page_title="השראות מדוד גלפרין", layout="wide")
     port = int(os.environ.get("PORT", 8501))
     st.run(port=port) 
