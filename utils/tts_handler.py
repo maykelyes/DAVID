@@ -2,6 +2,7 @@ import os
 import time
 import logging
 import asyncio
+import streamlit as st
 
 # הגדרת הלוגר
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -12,9 +13,17 @@ from pyht.client import TTSOptions, Language
 
 class TTSHandler:
     def __init__(self):
-        self.api_key = os.getenv('PLAYHT_API_KEY')
-        self.user_id = os.getenv('PLAYHT_USER_ID')
-        self.voice_id = os.getenv('PLAYHT_VOICE_ID')
+        try:
+            # ננסה לטעון מ-secrets
+            self.api_key = st.secrets["PLAYHT_API_KEY"]
+            self.user_id = st.secrets["PLAYHT_USER_ID"]
+            self.voice_id = st.secrets["PLAYHT_VOICE_ID"]
+        except:
+            # אם לא מצליח, נשתמש במשתני סביבה רגילים
+            self.api_key = os.environ.get("PLAYHT_API_KEY")
+            self.user_id = os.environ.get("PLAYHT_USER_ID")
+            self.voice_id = os.environ.get("PLAYHT_VOICE_ID")
+        
         logger.info(f"Initializing TTSHandler with voice_id: {self.voice_id}")
         
     async def generate_speech(self, text: str) -> bytes:

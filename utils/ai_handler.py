@@ -1,10 +1,18 @@
 import os
 import openai
+import streamlit as st
 from .prompt_templates import DAVID_PROMPT_TEMPLATE
 
 class AIHandler:
     def __init__(self):
-        openai.api_key = os.getenv('OPENAI_API_KEY')
+        try:
+            # ננסה לטעון מ-secrets
+            self.api_key = st.secrets["OPENAI_API_KEY"]
+        except:
+            # אם לא מצליח, נשתמש במשתני סביבה רגילים
+            self.api_key = os.environ.get("OPENAI_API_KEY")
+        
+        openai.api_key = self.api_key
         
     def generate_response(self, user_question: str) -> str:
         try:
