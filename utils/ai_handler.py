@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 import streamlit as st
 import logging
 from .prompt_templates import DAVID_PROMPT_TEMPLATE
@@ -14,13 +14,14 @@ class AIHandler:
         # ודא שמפתח ה־API מוגדר
         if not self.api_key:
             logger.error("OPENAI_API_KEY is not set in the environment!")
-        openai.api_key = self.api_key
+        # יצירת מופע של הלקוח
+        self.client = OpenAI(api_key=self.api_key)
         
     def generate_response(self, user_question: str) -> str:
         try:
             prompt = DAVID_PROMPT_TEMPLATE.format(user_question=user_question)
             
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
                     {"role": "system", "content": prompt},
