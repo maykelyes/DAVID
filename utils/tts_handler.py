@@ -13,16 +13,9 @@ from pyht.client import TTSOptions, Language
 
 class TTSHandler:
     def __init__(self):
-        try:
-            # ננסה לטעון מ-secrets
-            self.api_key = st.secrets["PLAYHT_API_KEY"]
-            self.user_id = st.secrets["PLAYHT_USER_ID"]
-            self.voice_id = st.secrets["PLAYHT_VOICE_ID"]
-        except:
-            # אם לא מצליח, נשתמש במשתני סביבה רגילים
-            self.api_key = os.environ.get("PLAYHT_API_KEY")
-            self.user_id = os.environ.get("PLAYHT_USER_ID")
-            self.voice_id = os.environ.get("PLAYHT_VOICE_ID")
+        self.api_key = os.environ.get("PLAYHT_API_KEY")
+        self.user_id = os.environ.get("PLAYHT_USER_ID")
+        self.voice_id = os.environ.get("PLAYHT_VOICE_ID")
         
         logger.info(f"Initializing TTSHandler with voice_id: {self.voice_id}")
         

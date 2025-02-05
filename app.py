@@ -14,12 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # טעינת משתני הסביבה
-try:
-    # ננסה לטעון מ-secrets (עבור סטרימליט)
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-except:
-    # אם לא מצליח, נשתמש במשתני סביבה רגילים (עבור Render)
-    openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 # הוספת CSS ליישור כל הטקסטים לימין (RTL)
 st.markdown(
