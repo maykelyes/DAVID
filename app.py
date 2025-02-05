@@ -5,6 +5,7 @@ from utils.ai_handler import AIHandler
 from utils.tts_handler import TTSHandler
 import logging
 import openai
+import os
 
 # הגדרת הלוגר
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -70,4 +71,10 @@ if st.button("שאל את דוד"):
                     logger.error("Audio data is invalid or empty")
                     st.error("מצטער, נתקלתי בבעיה בהמרת הטקסט לדיבור.")
     else:
-        st.warning("אנא הכנס שאלה כדי להמשיך.") 
+        st.warning("אנא הכנס שאלה כדי להמשיך.")
+
+# בסוף הקובץ
+if __name__ == "__main__":
+    st.set_page_config(page_title="השראות מדוד גלפרין", layout="wide")
+    port = int(os.environ.get("PORT", 8501))
+    st.run(port=port) 
