@@ -81,6 +81,6 @@ if st.button("שאל את דוד"):
         st.warning("אנא הכנס שאלה כדי להמשיך.")
 
 # בסוף הקובץ
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8501))
-    st.run(port=port) 
+# if __name__ == "__main__":
+#     port = int(os.environ.get("PORT", 8501))
+#     st.run(port=port) 
