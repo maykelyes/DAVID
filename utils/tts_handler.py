@@ -27,8 +27,10 @@ class TTSHandler:
             
             logger.info(f"Generating speech for text of length: {len(text)}")
             
-            # יצירת מופע של AsyncClient מה-SDK של PlayHT
+            # אתחול הלקוח ללא הפרמטר base_url (גרסה 0.1.4 אינה תומכת בו)
             client = AsyncClient(user_id=self.user_id, api_key=self.api_key)
+            # עדכון ידני של כתובת הבסיס לפי התיעוד
+            client._base_url = "https://api.play.ht"
             
             # יש לוודא שהערך של voice מתחיל בכיתוב "s3://"
             voice = self.voice_id if self.voice_id.startswith("s3://") else f"s3://{self.voice_id}"
@@ -48,8 +50,8 @@ class TTSHandler:
                 repetition_penalty=1.00
             )
 
-            voice_engine = "Play3.0-mini"
-            protocol = "http"
+            # בהתאם לתיעוד, לשימוש במודול 3.0-mini יש להגדיר את ה-voice_engine כ-"Play3.0-mini-http"
+            voice_engine = "Play3.0-mini-http"
             
             logger.info("Starting audio generation via PlayHT AsyncClient (streaming)...")
             
@@ -57,7 +59,7 @@ class TTSHandler:
             audio_data = bytearray()
             first_chunk = True
             # שימוש ב-async for לקבלת חלקי האודיו בצורה אסינכרונית
-            async for chunk in client.tts(text, options, voice_engine=voice_engine, protocol=protocol):
+            async for chunk in client.tts(text, options, voice_engine=voice_engine):
                 if first_chunk:
                     try:
                         # ננסה לדלות את תוכן החבילה כמחרוזת כדי לבדוק אם מדובר בהודעת שגיאה
